@@ -31,7 +31,7 @@ public class fragment2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment2, container, false);
-        // RecycleView 찾기
+        // RecyclerView 찾기
         recyclerView = view.findViewById(R.id.recycler);
         // DB에서 데이터 조회해서 list에 add 하기
         DBHelper helper = new DBHelper(getContext());
