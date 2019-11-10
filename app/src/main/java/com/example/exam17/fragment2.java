@@ -3,8 +3,6 @@ package com.example.exam17;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -46,12 +43,13 @@ public class fragment2 extends Fragment {
         list = new ArrayList<>();
         while (cursor.moveToNext()) {
             Item item = new Item();
-            item.image = cursor.getString(1);
-            item.title = cursor.getString(2);
-            item.count = cursor.getString(3);
+            item.image = cursor.getString(1);  // 대표 이미지
+            item.title = cursor.getString(2); // 앨범 이름
+            item.count = cursor.getString(3); // 이미지 개수
             list.add(item);
         }
 
+        adapter = new ItemAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -68,9 +66,26 @@ public class fragment2 extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull List<Object> payloads) {
+        public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
             Item item = list.get(position);
             holder.titleView.setText(item.title);
+
+            if(item.image.equals("img01"))
+                holder.imageView.setImageResource(R.drawable.img01);
+            else if(item.image.equals("img02"))
+                holder.imageView.setImageResource(R.drawable.img02);
+            else if(item.image.equals("img03"))
+                holder.imageView.setImageResource(R.drawable.img03);
+            else if(item.image.equals("img04"))
+                holder.imageView.setImageResource(R.drawable.img04);
+            else if(item.image.equals("img04"))
+                holder.imageView.setImageResource(R.drawable.img04);
+            else if(item.image.equals("img05"))
+                holder.imageView.setImageResource(R.drawable.img05);
+            else if(item.image.equals("img06"))
+                holder.imageView.setImageResource(R.drawable.img06);
+            else if(item.image.equals("img07"))
+                holder.imageView.setImageResource(R.drawable.img07);
         }
 
         @Override
@@ -81,7 +96,7 @@ public class fragment2 extends Fragment {
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
         TextView titleView, countView;
-        ImageView imageView
+        ImageView imageView;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,17 +104,6 @@ public class fragment2 extends Fragment {
             titleView = itemView.findViewById(R.id.title);
             countView = itemView.findViewById(R.id.count);
             imageView = itemView.findViewById(R.id.image);
-        }
-    }
-
-    class MyItemDecoration extends RecyclerView.ItemDecoration {
-        @Override
-        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            int position = parent.getChildAdapterPosition(view);
-            if (position % 2 == 0)
-                view.setBackgroundColor(Color.GRAY);
-            outRect.set(20, 0, 100, 100);
         }
     }
 }
